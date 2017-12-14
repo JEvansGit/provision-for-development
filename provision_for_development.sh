@@ -24,14 +24,16 @@ fi
 if hash dnf 2> /dev/null; then
     pm_prefix="dnf install"
     declare -A packages
-    packages[development]="@development-tools qt5-qtbase qt5-doc qconf git qt-creator python3 python3-dev cmake"
-    packages[editors]="vim g vim eclipse"
+    packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake"
+    packages[editors]="vim gvim eclipse"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh"
-    packages[security]="wireshark nmap zenmap tcpdump"
+    packages[security]="wireshark nmap tcpdump"
     packages[virtualization]="@virtualization virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
     echo "Updating system..."
+    cd /etc/yum.repos.d/;
+    wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo;
     dnf upgrade -y;
 fi
 
