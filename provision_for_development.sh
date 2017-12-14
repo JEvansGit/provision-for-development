@@ -29,7 +29,7 @@ if hash dnf 2> /dev/null; then
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh"
     packages[security]="wireshark nmap tcpdump"
-    packages[virtualization]="@virtualization VirtualBox vagrant qemu"
+    packages[virtualization]="@virtualization VirtualBox-5.2 vagrant qemu"
     packages[design]="dia inkscape gimp"
     echo "Updating system..."
     cd /etc/yum.repos.d/;
