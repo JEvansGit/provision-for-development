@@ -10,10 +10,10 @@ additional_flags=""
 if hash apt 2> /dev/null; then
     pm_prefix="apt install"
     declare -A packages
-    packages[development]="build-essential qt5-default qt5-qmake qt5-doc qtcreator git"
+    packages[development]="build-essential qt5-default qt5-qmake qt5-doc qtcreator git python2.7 python-dev python3 python3-dev cmake"
     packages[editors]="vim vim-gnome eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux"
+    packages[useful]="tmux zsh"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant kvm qemu qemu-kvm libvirt-daemon-system"
     packages[design]="dia inkscape gimp"
@@ -24,10 +24,10 @@ fi
 if hash dnf 2> /dev/null; then
     pm_prefix="dnf install"
     declare -A packages
-    packages[development]="@development-tools qt5-qtbase qt5-doc qconf git qt-creator"
+    packages[development]="@development-tools qt5-qtbase qt5-doc qconf git qt-creator python3 python3-dev cmake"
     packages[editors]="vim g vim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux"
+    packages[useful]="tmux zsh"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="@virtualization virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -38,10 +38,10 @@ fi
 if hash pacman 2> /dev/null; then
     pm_prefix="pacman -S"
     declare -A packages
-    packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator"
+    packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator python3 python3-dev cmake"
     packages[editors]="vim g vim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux"
+    packages[useful]="tmux zsh"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu libvirt"
     packages[design]="dia inkscape gimp"
@@ -53,10 +53,10 @@ if hash eopkg 2> /dev/null; then
     pm_prefix="eopkg install -y"
     additional_flags="-c"
     declare -A packages
-    packages[development]="system.devel qt5-base qt-creator git"
+    packages[development]="system.devel qt5-base qt-creator git python2.7 python-dev python3 python3-dev cmake"
     packages[editors]="vim gvim" # Eclipse is not available on Solus at the moment, need to find an alternative
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux"
+    packages[useful]="tmux zsh"
     packages[security]="wireshark nmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -67,10 +67,10 @@ fi
 if hash zypper 2> /dev/null; then
     pm_prefix="zypper install"
     declare -A packages
-    packages[development]="pattern devel qt5-qtbase qconf git qt-creator"
+    packages[development]="pattern devel qt5-qtbase qconf git qt-creator python3 python3-dev cmake"
     packages[editors]="vim g vim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux"
+    packages[useful]="tmux zsh"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -188,18 +188,13 @@ if [ ${configure,,} = "y" ]; then
     git config --global user.email = gitEmailAddress;
 fi
 
-printf "Do you want to a bare-bones vim config? Y/n:"
+printf "Do you want to a bare-bones Vim config? Y/n:"
 read vim_configure
 if [ ${vim_configure,,} = "y" ]; then
-    echo "set number" > ~/.vimrc;
-    echo "set shiftwidth=4" >> ~/.vimrc;
-    echo "set softtabstop=4" >> ~/.vimrc;
-    echo "set ruler" >> ~/.vimrc;
-    echo "set undolevels=1000" >> ~/.vimrc;
-    echo "syntax on" >> ~/.vimrc;
+    echo $'set number\necho\nset\nset shiftwidth=4\nset softtabstop=4\nset ruler\nset undolevels=1000\nsyntax on' > ~/.vimrc;
 fi
 
-printf "Do yo want to extend vim with plugins? Y/n: ";
+printf "Do yo want to extend Vim with plugins? Y/n: ";
 read vim_configure_plugins
 
 if [ ${vim_configure_plugins,,} = "y" ]; then
@@ -208,17 +203,33 @@ if [ ${vim_configure_plugins,,} = "y" ]; then
         curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim;
     echo "execute pathogen#infect()" >> ~/.vimrc;
 
-    printf "Do you want to use Intellisense? Y/n: "
+'
+    This seems to take a while. Will need to look into this later
+
+    printf "Do you want to use Intellisense with Vim? Y/n: "
     read intellisense
     if [ ${intellisense,,} = "y" ]; then
+        echo "Installing Intellisense for Vim (YouCompleteMe)..."
         git clone https://github.com/Valloric/YouCompleteMe.git;
-        mv YouCompleteMe/autoload/ ~/.vim
+        mv YouCompleteMe ~/.vim/bundle/;
+        cd ~/.vim/bundle/YouCompleteMe/;
+        git submodule update --init --recursive;
+        python3 install.py --clang-completer;
     fi
+'
+
 fi
 
-#Shell, aliases
+printf "Do you want to use zsh shell with oh-my-zsh? Y/n:"
+read zsh_install
 
-#################
-# Optimisations #
-#################
-#Optimisations - cores for compilation
+if [ ${zsh_install,,} = "y" ]; then
+    echo "Setting default shell to zsh..."
+    chsh -s $(which zsh);
+    echo "Installing oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)";
+    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc;
+    source ~/.zshrc;
+
+fi
+echo "Script finished successfully"
