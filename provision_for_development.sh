@@ -24,7 +24,7 @@ fi
 if hash dnf 2> /dev/null; then
     pm_prefix="dnf install"
     declare -A packages
-    packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake util-linux package"
+    packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake util-linux-user"
     packages[editors]="vim gvim eclipse"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh"
