@@ -24,11 +24,11 @@ fi
 if hash dnf 2> /dev/null; then
     pm_prefix="dnf install"
     declare -A packages
-    packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake"
+    packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake util-linux package"
     packages[editors]="vim gvim eclipse"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh"
-    packages[security]="wireshark nmap tcpdump"
+    packages[security]="wireshark wireshark-gnome nmap tcpdump"
     packages[virtualization]="@virtualization VirtualBox-5.2 vagrant qemu"
     packages[design]="dia inkscape gimp"
     echo "Updating system..."
