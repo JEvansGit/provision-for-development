@@ -204,22 +204,6 @@ if [ ${vim_configure_plugins,,} = "y" ]; then
     mkdir -p ~/.vim/autoload ~/.vim/bundle && \
         curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim;
     echo "execute pathogen#infect()" >> ~/.vimrc;
-
-'
-    This seems to take a while. Will need to look into this later
-
-    printf "Do you want to use Intellisense with Vim? Y/n: "
-    read intellisense
-    if [ ${intellisense,,} = "y" ]; then
-        echo "Installing Intellisense for Vim (YouCompleteMe)..."
-        git clone https://github.com/Valloric/YouCompleteMe.git;
-        mv YouCompleteMe ~/.vim/bundle/;
-        cd ~/.vim/bundle/YouCompleteMe/;
-        git submodule update --init --recursive;
-        python3 install.py --clang-completer;
-    fi
-'
-
 fi
 
 printf "Do you want to use zsh shell with oh-my-zsh? Y/n:"
