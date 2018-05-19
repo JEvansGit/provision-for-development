@@ -15,7 +15,7 @@ if hash apt 2> /dev/null; then
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh"
     packages[security]="wireshark nmap zenmap tcpdump"
-    packages[virtualization]="virtualbox vagrant kvm qemu qemu-kvm libvirt-daemon-system"
+    packages[virtualization]="virtualbox vagrant qemu qemu-kvm libvirt-daemon-system"
     packages[design]="dia inkscape gimp"
     echo "Updating system..."
     apt update && apt upgrade -y;
