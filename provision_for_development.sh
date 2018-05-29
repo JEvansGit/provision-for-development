@@ -193,7 +193,7 @@ fi
 printf "Do you want to a bare-bones Vim config? Y/n:"
 read vim_configure
 if [ ${vim_configure,,} = "y" ]; then
-    echo $'set number\necho\nset\nset shiftwidth=4\nset softtabstop=4\nset ruler\nset undolevels=1000\nsyntax on' > ~/.vimrc;
+    echo $'set number\nset\nset shiftwidth=4\nset softtabstop=4\nset ruler\nset undolevels=1000\nsyntax on\nset nobackup\nset number\nautocmd Filetype html setlocal ts=2 sts=2 sw=2\nautocmd Filetype css setlocal ts=2 sts=2 sw=2\nautocmd Filetype sass setlocal ts=2 sts=2 sw=2\nautocmd Filetype scss setlocal ts=2 sts=2 sw=2\nmap <C-n> :NERDTreeToggle<CR>\nmap <Space> za<CR>\nlet g:indentLine_char = \'¦\'\nlet g:closetag_filenames = "*.html,*.xhtml,*.phtml"\n' > ~/.vimrc;
 fi
 
 printf "Do yo want to extend Vim with plugins? Y/n: ";
