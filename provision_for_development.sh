@@ -40,11 +40,11 @@ fi
 if hash pacman 2> /dev/null; then
     pm_prefix="pacman -S"
     declare -A packages
-    packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator python3 python3-dev cmake"
+    packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator python3 cmake"
     packages[editors]="neovim"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh mpv"
-    packages[security]="wireshark nmap zenmap tcpdump"
+    packages[security]="wireshark-qt nmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu libvirt"
     packages[design]="dia inkscape gimp"
     echo "Updating system..."
@@ -178,7 +178,6 @@ $install;
 #################
 printf "\n################ System Configuration #################\n\n"
 
-echo  $"\nexport EDITOR=nvim\n" >> /home/$USER/.bashrc;
 echo  $"\nalias vim='nvim'\n" >> /home/$USER/.bashrc;
 printf "Neovim has been set to your default editor\n"
 
