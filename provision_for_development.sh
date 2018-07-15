@@ -178,10 +178,8 @@ $install;
 #################
 printf "\n################ System Configuration #################\n\n"
 
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60;
-sudo update-alternatives --config vi;
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60;
-sudo update-alternatives --config vim;
+echo  $"\nexport EDITOR=nvim\n" >> /home/$USER/.bashrc;
+echo  $"\nalias vim='nvim'\n" >> /home/$USER/.bashrc;
 printf "Neovim has been set to your default editor\n"
 
 printf "Do you want to configure Git? Y/n:"
