@@ -11,7 +11,7 @@ if hash apt 2> /dev/null; then
     pm_prefix="apt install"
     declare -A packages
     packages[development]="build-essential qt5-default qt5-qmake qt5-doc qtcreator git python2.7 python-dev python3 python3-dev cmake"
-    packages[editors]="vim vim-gnome eclipse"
+    packages[editors]="neovim"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap zenmap tcpdump"
@@ -25,7 +25,7 @@ if hash dnf 2> /dev/null; then
     pm_prefix="dnf install"
     declare -A packages
     packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake util-linux-user"
-    packages[editors]="vim gvim eclipse"
+    packages[editors]="neovim"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh mpv"
     packages[security]="wireshark wireshark-gnome nmap tcpdump"
@@ -41,7 +41,7 @@ if hash pacman 2> /dev/null; then
     pm_prefix="pacman -S"
     declare -A packages
     packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator python3 python3-dev cmake"
-    packages[editors]="vim g vim eclipse"
+    packages[editors]="neovim"
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap zenmap tcpdump"
@@ -56,7 +56,7 @@ if hash eopkg 2> /dev/null; then
     additional_flags="-c"
     declare -A packages
     packages[development]="system.devel qt5-base qt-creator git python2.7 python-dev python3 python3-dev cmake"
-    packages[editors]="vim gvim" # Eclipse is not available on Solus at the moment, need to find an alternative
+    packages[editors]="neovim" # Eclipse is not available on Solus at the moment, need to find an alternative
     packages[debugging]="gdb valgrind"
     packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap tcpdump"
@@ -177,6 +177,12 @@ $install;
 # Configuration #
 #################
 printf "\n################ System Configuration #################\n\n"
+
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60;
+sudo update-alternatives --config vi;
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60;
+sudo update-alternatives --config vim;
+printf "Neovim has been set to your default editor\n"
 
 printf "Do you want to configure Git? Y/n:"
 read configure
