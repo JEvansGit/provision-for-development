@@ -178,7 +178,7 @@ $install;
 #################
 printf "\n################ System Configuration #################\n\n"
 
-echo  $"\nalias vim='nvim'\n" >> /home/$USER/.bashrc;
+echo  $"alias vim='nvim'" >> /home/$USER/.bashrc;
 printf "Neovim has been set to your default editor\n"
 
 printf "Do you want to configure Git? Y/n:"
