@@ -13,7 +13,7 @@ if hash apt 2> /dev/null; then
     packages[development]="build-essential qt5-default qt5-qmake qt5-doc qtcreator git python2.7 python-dev python3 python3-dev cmake"
     packages[editors]="vim vim-gnome eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux zsh"
+    packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu qemu-kvm libvirt-daemon-system"
     packages[design]="dia inkscape gimp"
@@ -27,7 +27,7 @@ if hash dnf 2> /dev/null; then
     packages[development]="@development-tools qt5-qtbase qconf git qt-creator python3 python3-devel cmake util-linux-user"
     packages[editors]="vim gvim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux zsh"
+    packages[useful]="tmux zsh mpv"
     packages[security]="wireshark wireshark-gnome nmap tcpdump"
     packages[virtualization]="@virtualization VirtualBox-5.2 vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -43,7 +43,7 @@ if hash pacman 2> /dev/null; then
     packages[development]="base-devel qt5-base qt5-doc qconf git qtcreator python3 python3-dev cmake"
     packages[editors]="vim g vim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux zsh"
+    packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu libvirt"
     packages[design]="dia inkscape gimp"
@@ -58,7 +58,7 @@ if hash eopkg 2> /dev/null; then
     packages[development]="system.devel qt5-base qt-creator git python2.7 python-dev python3 python3-dev cmake"
     packages[editors]="vim gvim" # Eclipse is not available on Solus at the moment, need to find an alternative
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux zsh"
+    packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -72,7 +72,7 @@ if hash zypper 2> /dev/null; then
     packages[development]="pattern devel qt5-qtbase qconf git qt-creator python3 python3-dev cmake"
     packages[editors]="vim g vim eclipse"
     packages[debugging]="gdb valgrind"
-    packages[useful]="tmux zsh"
+    packages[useful]="tmux zsh mpv"
     packages[security]="wireshark nmap zenmap tcpdump"
     packages[virtualization]="virtualbox vagrant qemu"
     packages[design]="dia inkscape gimp"
@@ -190,32 +190,18 @@ if [ ${configure,,} = "y" ]; then
     git config --global user.email = gitEmailAddress;
 fi
 
-printf "Do you want to a bare-bones Vim config? Y/n:"
+printf "Do you want a bare-bones Vim config? Y/n:"
 read vim_configure
 if [ ${vim_configure,,} = "y" ]; then
-    echo $'set number\nset\nset shiftwidth=4\nset softtabstop=4\nset ruler\nset undolevels=1000\nsyntax on\nset nobackup\nset number\nautocmd Filetype html setlocal ts=2 sts=2 sw=2\nautocmd Filetype css setlocal ts=2 sts=2 sw=2\nautocmd Filetype sass setlocal ts=2 sts=2 sw=2\nautocmd Filetype scss setlocal ts=2 sts=2 sw=2\nmap <C-n> :NERDTreeToggle<CR>\nmap <Space> za<CR>\nlet g:indentLine_char = \'¦\'\nlet g:closetag_filenames = "*.html,*.xhtml,*.phtml"\n' > ~/.vimrc;
+    mkdir ~/.config/nvim/;
+    cp configs/init.vim /home/$USER/.config/nvim/;
 fi
 
-printf "Do yo want to extend Vim with plugins? Y/n: ";
-read vim_configure_plugins
-
-if [ ${vim_configure_plugins,,} = "y" ]; then
-    echo "Installing Pathogen...";
-    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim;
-    echo "execute pathogen#infect()" >> ~/.vimrc;
+printf "Do you want a bare-bones mpv config?"
+read mpv_configure
+if [ ${mpv_configure,,} = "y" ]; then
+    mkdir ~/.config/mpv/;
+    cp configs/mpv.conf /home/$USER/.config/mpv/;
 fi
 
-printf "Do you want to use zsh shell with oh-my-zsh? Y/n:"
-read zsh_install
-
-if [ ${zsh_install,,} = "y" ]; then
-    echo "Setting default shell to zsh..."
-    chsh -s $(which zsh);
-    echo "Installing oh-my-zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)";
-    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc;
-    source ~/.zshrc;
-
-fi
 echo "Script finished successfully"
