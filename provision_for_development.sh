@@ -178,6 +178,8 @@ $install;
 #################
 printf "\n################ System Configuration #################\n\n"
 
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
+
 echo  $"alias vim='nvim'" >> /home/$USER/.bashrc;
 printf "Neovim has been set to your default editor\n"
 
