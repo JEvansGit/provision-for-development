@@ -1,9 +1,5 @@
-execute pathogen#infect()
-
 "Editor settings
 syntax enable
-colorscheme NeoSolarized
-
 set autoindent
 set shiftwidth=4
 set smartindent
@@ -23,7 +19,6 @@ set colorcolumn=80
 set cursorline
 set t_Co=256
 
-
 "Indentation
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype php setlocal ts=2 sts=2 sw=2
@@ -41,6 +36,10 @@ if has('nvim')
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'alvan/vim-closetag'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'ntpeters/vim-better-whitespace'
   Plug 'iCyMind/NeoSolarized'
 else
   Plug 'Shougo/deoplete.nvim'
@@ -49,6 +48,8 @@ else
 endif
 call plug#end()
 
+colorscheme PaperColor
+
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_char = '¦'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
@@ -56,4 +57,4 @@ let g:one_allow_italics = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='minimalist'
+let g:airline_theme='papercolor'
