@@ -5,6 +5,12 @@
 # This script provisions Common Linux machines with software development programs #
 ###################################################################################
 
+# Check for root
+if [[ $EUID -ne 0 ]]; then
+    echo "You must be root to run this script."
+    exit 1
+fi
+
 additional_flags=""
 
 if hash apt 2> /dev/null; then
@@ -94,12 +100,6 @@ done
 echo $all_packages
 
 packages[all]=$all_packages
-
-# Check for root
-if [[ $EUID -ne 0 ]]; then
-    echo "You must be root to run this script."
-    exit 1
-fi
 
 ############################
 # Installation of packages #
