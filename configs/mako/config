@@ -1,0 +1,12 @@
+max-visible=1
+anchor=top-right
+font=Lato-Thin 10
+default-timeout=8000
+icons=1
+markup=1
+padding=5
+background-color=#252525
+progress-color=#70787d
+text-color=#eeeeee
+border-color=#70787d
+border-size=1

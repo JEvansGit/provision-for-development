@@ -15,9 +15,11 @@ set nobackup
 set number
 set laststatus=2
 set termguicolors
-set colorcolumn=80
 set cursorline
+set pumblend=15
 set t_Co=256
+set background=light
+
 
 "Indentation
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
@@ -32,10 +34,10 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 call plug#begin()
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'relastle/bluewery.vim'
+  Plug 'itchyny/lightline.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'alvan/vim-closetag'
   Plug 'NLKNguyen/papercolor-theme'
@@ -54,7 +56,4 @@ let g:deoplete#enable_at_startup = 1
 let g:indentLine_char = '¦'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 let g:one_allow_italics = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='papercolor'
+let g:lightline = { 'colorscheme': 'PaperColor' }
